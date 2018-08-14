@@ -106,7 +106,7 @@
                     //when the selection is cleared remove the popup content from the side panel.
                     connect.connect(popup, "onClearFeatures", function() {
                         //dom.byId replaces dojo.byId
-                        dom.byId("featureCount").innerHTML = "Click the point to select feature";
+                        dom.byId("featureCount").innerHTML = "Click on a point to learn more";
                         //registry.byId replaces dijit.byId
                         registry.byId("leftPane").set("content", "");
                         domUtils.hide(dom.byId("pager"));
