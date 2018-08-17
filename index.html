@@ -42,6 +42,13 @@
         table {
             font-size: small;
         }
+        .logo{
+            margin-left: 0;
+            position: absolute;
+            bottom: 0;
+            z-index: -1;
+
+        }
     </style>
 
     <script src="https://js.arcgis.com/3.25/"></script>
@@ -86,10 +93,12 @@
                 //Create a map based on an ArcGIS Online web map id
                 arcgisUtils.createMap("0e0f4c26b8334dcc947034b250213e40", "map")
                     .then(function(response) {
+                        registry.byId("leftPane").set("content", narrarive());
                         window.map = response.map;
                         //set the popup's popupWindow property to false. This prevents the popup from displaying
                         map.infoWindow.set("popupWindow", false);
                         initializeSidebar(window.map);
+//                        registry.byId("leftPane").set("content", narrarive());
                     }, function(error) {
                         console.log("Map creation failed: ", dojo.toJson(error));
                     });
@@ -108,7 +117,7 @@
                         //dom.byId replaces dojo.byId
                         dom.byId("featureCount").innerHTML = "Click on a point to learn more";
                         //registry.byId replaces dijit.byId
-                        registry.byId("leftPane").set("content", "");
+                        registry.byId("leftPane").set("content", narrarive());
                         domUtils.hide(dom.byId("pager"));
                     });
 
@@ -141,6 +150,18 @@
                 function selectNext() {
                     window.map.infoWindow.selectNext();
                 }
+
+                function narrarive(){
+                    return "<p>This map shows the locations of the Great Lakes Sediment and Nutrient Reduction Program grant recipients for 2018.</p><br>" +
+                        "<p>By clicking any point on the map (highlighted in green), you’ll find detailed information about each project including:<br>" +
+                        "<ul>" +
+                        "<li>Grant recipient (organization name)</li>" +
+                        "<li>Project title</li>" +
+                        "<li>Description of the watershed and proposed best management practices to be implemented</li>" +
+                        "<li>State in which the project site is located</li>" +
+                        "<li>Grant amount</li>" +
+                            "</ul></p>"
+                }
             });
         });
     </script>
@@ -167,7 +188,9 @@
             </div>
         </div>
     </div>
+
     <div id="map" data-dojo-type="dijit/layout/ContentPane" data-dojo-props="region:'center'"></div>
+    <div class="logo"><img src="img/GLC-Logo-20090820-FINAL-WEB-TRANSPARENT-250pxwx90pxh.png"> </div>
 </div>
 </body>
 
